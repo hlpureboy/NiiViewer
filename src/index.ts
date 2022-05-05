@@ -12,8 +12,7 @@ const MIME_TYPE3 = 'application/x-gzip';
 declare let papaya: any;
 declare let papayaContainers: any[];
 //declare var niivue:any;
-declare let container_num:number;
-container_num = 0;
+var container_num = 0;
 
 /**
  * The class name added to the extension.
