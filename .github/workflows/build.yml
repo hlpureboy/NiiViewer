@@ -25,8 +25,7 @@ jobs:
       run: python -m pip install jupyterlab
     - name: Build the extension
       run: |
-        jlpm
-        jlpm run eslint:check
+        jlpm build 
         python -m pip install .
         jupyter labextension list 2>&1 | grep -ie "NiiViewer.*OK"
         python -m jupyterlab.browser_check

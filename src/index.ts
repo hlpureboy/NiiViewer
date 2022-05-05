@@ -35,18 +35,16 @@ export class OutputWidget extends Widget implements IRenderMime.IRenderer {
     super();
     this.addClass(CLASS_NAME);
     this.Setmmtype(options);
-
-    // add script 
     const _ = container_num;
     if(_===0){
-      var s1 = document.createElement('script');
+      let s1 = document.createElement('script');
       s1.type = 'text/javascript'
       s1.src = 'https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js'
       s1.onload =() =>{
         console.log('load jquery');
-      }
+      };
       this.node.appendChild(s1);
-      var s2 = document.createElement('script');
+      let s2 = document.createElement('script');
       s2.type = 'text/javascript';
       s2.src = 'https://oss.brains.center/papaya.js';
       s2.onload = () => {
