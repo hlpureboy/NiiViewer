@@ -9,10 +9,10 @@ import '../style/index.css';
 const MIME_TYPE = 'application/nii';
 const MIME_TYPE2 = 'application/gzip';
 const MIME_TYPE3 = 'application/x-gzip';
-declare var papaya: any;
-declare var papayaContainers: any[];
+declare let papaya: any;
+declare let papayaContainers: any[];
 //declare var niivue:any;
-declare var container_num:number;
+declare let container_num:number;
 container_num = 0;
 
 /**
@@ -36,10 +36,9 @@ export class OutputWidget extends Widget implements IRenderMime.IRenderer {
     this.addClass(CLASS_NAME);
     this.Setmmtype(options);
 
-    console.log((typeof(papaya)==undefined))
     // add script 
     const _ = container_num;
-    if(_==0){
+    if(_===0){
       var s1 = document.createElement('script');
       s1.type = 'text/javascript'
       s1.src = 'https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js'
