@@ -36,7 +36,7 @@ def _(*args, **kwargs):
 # _(sys.executable, "-m", "pip", "check")
 
 _("jlpm", "install")
-_("jupyter", "labextension", "install", ".")
+_("jupyter", "labextension", "link", ".")
 
 # list the extensions
 _("jupyter", "server", "extension", "list")
