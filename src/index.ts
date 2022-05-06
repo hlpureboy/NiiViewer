@@ -1,3 +1,8 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable prefer-const */
+/* eslint-disable eqeqeq */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable prettier/prettier */
 import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 import { Message } from '@lumino/messaging';
 
@@ -12,7 +17,7 @@ const MIME_TYPE3 = 'application/x-gzip';
 declare let papaya: any;
 declare let papayaContainers: any[];
 //declare var niivue:any;
-var container_num = 0;
+let container_num = 0;
 
 /**
  * The class name added to the extension.
@@ -36,14 +41,14 @@ export class OutputWidget extends Widget implements IRenderMime.IRenderer {
     this.Setmmtype(options);
     const _ = container_num;
     if(_===0){
-      let s1 = document.createElement('script');
+      const s1 = document.createElement('script');
       s1.type = 'text/javascript'
       s1.src = 'https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js'
       s1.onload =() =>{
         console.log('load jquery');
       };
       this.node.appendChild(s1);
-      let s2 = document.createElement('script');
+      const s2 = document.createElement('script');
       s2.type = 'text/javascript';
       s2.src = 'https://oss.brains.center/papaya.js';
       s2.onload = () => {
@@ -51,13 +56,7 @@ export class OutputWidget extends Widget implements IRenderMime.IRenderer {
         papaya.Container.syncViewers = true;
       };
       this.node.appendChild(s2);
-        // var s3 = document.createElement('script');
-        // s3.type = 'text/javascript'
-        // s3.src = 'https://niivue.github.io/niivue/features/niivue.umd.js'
-        // s3.onload =() =>{
-        //   console.log('load niivue');
-        // }
-        // this.node.appendChild(s3);
+      // reload js env
       console.log('init init');
     }
 
@@ -68,7 +67,7 @@ export class OutputWidget extends Widget implements IRenderMime.IRenderer {
 
   }
   protected onResize(msg: Widget.ResizeMessage): void {
-    if (this.div_flag){
+    if (this.div_flag && papayaContainers[this.div_num]!=undefined) {
     papayaContainers[this.div_num].resizeViewerComponents(true);
   }
 
@@ -92,41 +91,16 @@ export class OutputWidget extends Widget implements IRenderMime.IRenderer {
     //alert(flag);
     if (this.div_flag==false){
     this.div_num = container_num;
-    let data = model.data[this._mimeType] as string;
+    const data = model.data[this._mimeType] as string;
+
     let pdiv = document.createElement('div');
-    pdiv.style.height = "0px";
-    pdiv.classList.add("papaya");
-    pdiv.id = "papaya"+this.div_num;
+    pdiv.style.height = '0px';
+    pdiv.classList.add('papaya');
+    pdiv.id = 'papaya'+this.div_num;
     this.node.appendChild(pdiv);
     papaya.Container.addViewer('papaya'+this.div_num,{encodedImages: [data],noNewFiles:true,smoothDisplay:false,syncOverlaySeries:false,ignoreSync:true,showControlBar:true,showControls:true},function(){});
     this.div_flag = true;
     container_num +=1;
-    //papayaContainers[container_num].noNewFiles = true;
-    
-    // let cnavas = document.createElement('canvas')
-    // cnavas.id = 'gl'+container_num;
-
-    // this.node.appendChild(cnavas);
-    
-    // console.log("render model ")
-    // console.log(model.metadata)
-    // let niiview = new niivue.Niivue()
-    // niiview.setRadiologicalConvention(false)
-    // niiview.attachTo('gl'+container_num)
-    // niiview.scene.loading$.next(true);
-    // console.log(this.title)
-    // console.log('gl')
-    
-    // let image = await niivue.NVImage.loadFromBase64({base64:data,name:"name.nii.gz",colorMap:"bule2red"})
-    // niiview.scene.loading$.next(false);
-    // niiview.addVolume(image)
-    
-    // niiview.setSliceType(niiview.sliceTypeMultiplanar);
-    // niiview.createEmptyDrawing();
-      
-    // console.log(data);
-    //this.div_num = container_num;
-    //container_num +=1;
   }
     return Promise.resolve();
   }
